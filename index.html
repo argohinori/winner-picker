@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="./css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Winner Picker</title>
+  </head>
+  <body>
+    <div id="App">
+      <!-- container input -->
+      <div id="names" class="container" v-if="state">
+        <div class="logo">
+          <h1 class="animate__animated animate__fadeIn">Who is the Winner?</h1>
+        </div>
+
+        <div class="input-container animate__animated animate__bounceIn">
+          <input
+            type="text"
+            placeholder="Insert name here..."
+            v-model.trim.lazy="inputName"
+          />
+          <button @click="addNameToList">Add</button>
+        </div>
+
+        <div
+          class="error-label animate__animated animate__headShake"
+          v-if="showError"
+        >
+          {{ error }}
+        </div>
+        <div class="list-of-names">
+          <div
+            v-for="(name, index) in names"
+            :key="name"
+            @click="removeName(index)"
+            class="animate__animated animate__bounceInLeft"
+          >
+            {{ name }}
+          </div>
+        </div>
+        <div v-if="isReady">
+          <div
+            class="action-button animate__animated animate__bounceInUp"
+            @click="showResult"
+          >
+            Get The Winner!
+          </div>
+        </div>
+      </div>
+      <!-- container winner -->
+      <div id="result" class="container" v-if="!state">
+        <div class="result-container">
+          <h1>CONGRATULATIONS</h1>
+          <div
+            class="result-value animate__animated animate__heartBeat animate__infinite"
+          >
+            {{ result }}
+          </div>
+        </div>
+
+        <div
+          class="action-button animate__animated animate__bounceInUp animate__delay-1s animate__slow"
+          @click="resetApp"
+        >
+          Create new
+        </div>
+        <br />
+        <div
+          class="action-button btn2 animate__animated animate__bounceInUp animate__delay-2s animate__slow"
+          @click="getNewResult"
+        >
+          Get another Winner
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="./script/index.js"></script>
+</html>
